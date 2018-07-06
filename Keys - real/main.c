@@ -40,19 +40,27 @@
 */
 /*******************************************
 */
+/************************************************************************/
+/* Setup and initilization function										*/
+/* DDR(X) = Data direction registers for port (X)						*/
+/* I = Input, O = Output		set in binary, MSB X X X X X X X X LSB	*/
+/************************************************************************/
+void setup();
+{
+int temp = 0x00;
+char key = 'X';
+int flag = 0x00;
+int number = 0x00;
+int column = 0x00;
+int key_temp = 0x00;
+int column_scan = 0x00;
+DDRA = 0x00;		// Set port A as inputs
+DDRB = 0x00;		// Set port B as inputs
+DDRC = 0x0F;		// Set port C as IIIIOOOO
+DDRD = 0x07;		// Set port D as IIIIIOOO
+}
 
-void setup(void);
-
-int temp;
-char key;
-int flag;
-int number;
-int column;
-int key_temp;
-int column_scan;
-
-
-int main(void)
+void loop()
 	{
 	key = 'Q';
 		flag = 0x00;
@@ -74,15 +82,3 @@ int main(void)
 	}
 
 
-/************************************************************************/
-/* Setup and initilization function										*/
-/* DDR(X) = Data direction registers for port (X)						*/
-/* I = Input, O = Output		set in binary, MSB X X X X X X X X LSB	*/
-/************************************************************************/
-void setup(void)
-{
-	DDRA = 0x00;		// Set port A as inputs
-	DDRB = 0x00;		// Set port B as inputs
-	DDRC = 0x0F;		// Set port C as IIIIOOOO
-	DDRD = 0x07;		// Set port D as IIIIIOOO
-}
