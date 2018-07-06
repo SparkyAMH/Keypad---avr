@@ -70,18 +70,18 @@ DDRD = 0x07;		// Set port D as IIIIIOOO
 */
 void loop()
 	{
-	key = 'Q';
+	key = 'M';
 		flag = 0x00;
 //setup keypad data direction register
 		DDRD = 0x07;	
-		column_scan = 0;
-		column = 0x01;
-	
-		while (1)
-			{
-
+		
 			key = scankeys();
-			putchar( key );
+			if (key != 'Q' && key != 'M' && key != 'Z' && key != '#')
+			{
+				//write key to array
+			}
+			else 
+				//do nothing
 			
 			}
 
