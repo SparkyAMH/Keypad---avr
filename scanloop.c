@@ -14,8 +14,7 @@ char scanKey()
 				}
 			}
 		}
-	return 'Z';
-}
+	}
 
 /* Keypad pattern r c
 // 00 01 02		1 2 3
