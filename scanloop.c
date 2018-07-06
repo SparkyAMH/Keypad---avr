@@ -1,10 +1,10 @@
 char scanKey()
 {
-	for (j=0x0; j<0x3; j++)//set column - test row
+	for (int j=0x0; j<0x3; j++)//set column - test row
 		{
 			//set column high
 			PORTD = j;
-			for (i=0x00; i<0x04; i++) //check for row
+			for (int i=0x00; i<0x04; i++) //check for row
 			{
 				temp = scankey(i);
 				if (temp != 0x00)
