@@ -13,6 +13,9 @@
 //#include <avr/macros.h>
 #include <stdio.h>
 
+char scanKey();
+char getCase(int column, int row);
+
 /**********************************************************
 *	Circuit connections:
 *	
@@ -54,12 +57,17 @@ int number = 0x00;
 int column = 0x00;
 int key_temp = 0x00;
 int column_scan = 0x00;
+string input[6][10];
+input[0] = '*7623782*'; // master set code
+input[1] = '*2873267*'; // master remove code
 DDRA = 0x00;		// Set port A as inputs
 DDRB = 0x00;		// Set port B as inputs
 DDRC = 0x0F;		// Set port C as IIIIOOOO
 DDRD = 0x07;		// Set port D as IIIIIOOO
 }
-
+/*master add keycode *7623782*# status light number # keycode #
+  master remove keycode *2873267*# status light number #
+*/
 void loop()
 	{
 	key = 'Q';
@@ -82,3 +90,87 @@ void loop()
 	}
 
 
+char scanKey()
+{
+	for (int j=0x0; j<0x3; j++)//set column - test row
+		{
+			//set column high
+			PORTD = j;
+			for (int i=0x00; i<0x04; i++) //check for row
+			{
+				temp = scankey(i);
+				if (temp != 0x00)
+				{
+					KeyPressed = getCase(j,i); //send position for decoding
+					return (KeyPressed); //return pointer to array with column and row
+				}
+			}
+		}
+	}
+
+/* Keypad pattern r c
+// 00 01 02		1 2 3
+// 10 11 12		4 5 6
+// 20 21 22		7 8 9
+// 30 31 32		* 0 #
+*/
+char getCase(int column, int row)
+	{
+		char key = 'Q';
+
+		if (column = 0)
+		{
+			switch(row)
+				 {
+					case 0x00 :
+					key = '1';
+					break;
+					case 0x01 :
+					key = '4';
+					break;
+					case 0x02 :
+					key = '7';
+					break;
+					case 0x03 :
+					key = '*';
+					break;
+				} 
+		}	
+		if (column = 1)
+		{
+			switch(row)
+				 {
+					case 0x00 :
+					key = '2';
+					break;
+					case 0x01 :
+					key = '5';
+					break;
+					case 0x02 :
+					key = '8';
+					break;
+					case 0x03 :
+					key = '0';
+					break;
+				} 
+		}
+		if (column = 2)
+		{
+			switch(row)
+				 {
+					case 0x00 :
+					key = '3';
+					break;
+					case 0x01 :
+					key = '6';
+					break;
+					case 0x02 :
+					key = '9';
+					break;
+					case 0x03 :
+					key = '#';
+					break;
+				} 
+		}
+		return key;
+	}
